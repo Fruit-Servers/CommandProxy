@@ -42,9 +42,7 @@ public final class CommandProxy extends JavaPlugin {
 
         brigadierRegistrar = new BrigadierCommandRegistrar(this);
 
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-            brigadierRegistrar.registerUppercaseVariants(commandMap);
-        }, 20L);
+        Bukkit.getScheduler().runTaskLater(this, () -> brigadierRegistrar.registerUppercaseVariants(commandMap), 20L);
 
         getLogger().info("CommandLowercaseProxy has been enabled!");
         getLogger().info("Intercepting " + (targetCommands.isEmpty() ? "ALL" : targetCommands.size()) + " commands");
@@ -115,9 +113,7 @@ public final class CommandProxy extends JavaPlugin {
         loadTargetCommands();
 
         if (brigadierRegistrar != null && commandMap != null) {
-            Bukkit.getScheduler().runTask(this, () -> {
-                brigadierRegistrar.registerUppercaseVariants(commandMap);
-            });
+            Bukkit.getScheduler().runTask(this, () -> brigadierRegistrar.registerUppercaseVariants(commandMap));
         }
     }
 
@@ -131,10 +127,6 @@ public final class CommandProxy extends JavaPlugin {
 
     public Map<String, String> getCommandAliases() {
         return commandAliases;
-    }
-
-    public CommandMap getCommandMap() {
-        return commandMap;
     }
 
     public boolean isProcessing() {
